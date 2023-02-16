@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 import { TableContainer } from "../../../common/CommonStyledComponents";
 import Filters from "../../../components/Filters";
 import Header from "../../../components/Header";
-import { GetProvinceWiseLandReportDetailsApi } from "../../../services/Appservices/AgricultureServices";
+import {
+  GetlistofDisctrictByStateIdApi,
+  GetListOfStateApi,
+  GetListOfVDCByDistrictIdApi,
+  GetProvinceWiseLandReportDetailsApi,
+} from "../../../services/Appservices/AgricultureServices";
 
 const columns = [
   {
@@ -17,15 +22,15 @@ const columns = [
     width: 150,
   },
   {
-    title: "FarmType",
+    title: "Farm Type",
     dataIndex: "FarmType",
   },
   {
-    title: "KittaNumber",
+    title: "Kitta No.",
     dataIndex: "KittaNumber",
   },
   {
-    title: "LandOwner",
+    title: "Land Owner",
     dataIndex: "LandOwner",
   },
   {
@@ -33,15 +38,15 @@ const columns = [
     dataIndex: "District",
   },
   {
-    title: "frmName",
+    title: "Farm Name",
     dataIndex: "frmName",
   },
   {
-    title: "frmLocation",
+    title: "Farm Location",
     dataIndex: "frmLocation",
   },
   {
-    title: "VDCMun",
+    title: "VDC/Mun",
     dataIndex: "VDCMun",
   },
   // {
@@ -53,27 +58,93 @@ const columns = [
 const ProvienceWiseLand = () => {
   const [provinceWiseLandList, setProvinceWiseLandList] = useState();
 
+  // dropdown lists data
+
+  const [provienceList, setProvienceList] = useState();
+  const [districtList, setDistrictList] = useState();
+  const [vdcList, setVdcList] = useState();
+
+  // data states
+
+  const [provience, setProvience] = useState();
+  const [district, setDistrict] = useState();
+  const [vdc, setVdc] = useState();
+  const [ward, setWard] = useState();
+
   useEffect(() => {
+    GetListOfStateApi((res) => {
+      const data = res.map((item) => ({
+        value: item.StateId,
+        label: item.StateName,
+      }));
+      setProvienceList(data);
+    });
+  }, []);
+
+  const onSubmit = () => {
+    setProvinceWiseLandList();
     const data = {
-      provinceId: 1,
-      districtId: 1,
-      vdc: 1,
-      ward: 1,
+      provinceId: provience,
+      districtId: district,
+      vdc: vdc,
+      ward: ward,
       iscultivated: true,
     };
+    console.log(data);
     GetProvinceWiseLandReportDetailsApi(data, (res) => {
       console.log(res);
       if (res.length > 0) {
-        console.log(res, "this is res");
+        // console.log(res, "this is res");
         setProvinceWiseLandList(res);
       }
     });
-  }, []);
+  };
+
+  const onSelectState = (id) => {
+    setProvience(id);
+    const data = {
+      stateId: id,
+    };
+
+    GetlistofDisctrictByStateIdApi(data, (res) => {
+      //   console.log(res);
+      const data = res.map((item) => ({
+        value: item.DId,
+        label: item.District,
+      }));
+      setDistrictList(data);
+    });
+  };
+  const onSelectDistrict = (id) => {
+    setDistrict(id);
+    const data = {
+      districtId: id,
+    };
+
+    GetListOfVDCByDistrictIdApi(data, (res) => {
+      //   console.log(res);
+      const data = res.map((item) => ({
+        value: item.VdcID,
+        label: item.Name,
+      }));
+      setVdcList(data);
+    });
+  };
   return (
     <>
-      <Header title={"Provience wise land report"} />
+      <Header title={"Provience Wise Land Report"} />
       <TableContainer>
-        <Filters />
+        <Filters
+          ProvinceWiseLandfilter={true}
+          provienceList={provienceList}
+          onSelectState={onSelectState}
+          districtList={districtList}
+          onSelectDistrict={onSelectDistrict}
+          vdcList={vdcList}
+          setVdc={setVdc}
+          setWard={setWard}
+          onSubmit={onSubmit}
+        />
         <Table
           columns={columns}
           dataSource={provinceWiseLandList}

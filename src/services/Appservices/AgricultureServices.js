@@ -2,6 +2,8 @@ import { setStateListToStore } from "../../store/features/StateList/stateListSli
 import {
   GetAgriType,
   GetBaaliProductionDetailsByLocation,
+  GetBaaliSummaryDetailsbyBaaliTypeAndDate,
+  GetBaaliSummaryDetailsbyBaaliTypeAndVDCMUN,
   GetFarmType,
   GetLandStatusDetialByFarmType,
   GetlistofDisctrictByStateId,
@@ -104,16 +106,45 @@ export const GetAgriTypeApi = async (data, successCallback) => {
     successCallback([]);
   }
 };
-export const GetLandStatusDetialByFarmTypeApi = async (
+export const GetBaaliSummaryDetailsbyBaaliTypeAndVDCMUNApi = async (
   data,
   successCallback
 ) => {
   try {
-    const response = await store(
-      `${GetLandStatusDetialByFarmType}?fromdate=${data.fromdate}&todate=${data.todate}&baaliTypeId=${data.baaliTypeId}`
+    const response = await fetch(
+      `${GetBaaliSummaryDetailsbyBaaliTypeAndVDCMUN}?fromdate=${data.fromdate}&todate=${data.todate}&baaliTypeId=${data.baaliTypeId}`
+    );
+    if (response?.status === 200) {
+      successCallback(response?.data.SummaryBaaliByVDC);
+    } else {
+      successCallback([]);
+    }
+  } catch (errror) {
+    successCallback([]);
+  }
+};
+export const GetBaaliSummaryDetailsbyBaaliTypeAndDateApi = async (
+  data,
+  successCallback
+) => {
+  try {
+    const response = await fetch(
+      `${GetBaaliSummaryDetailsbyBaaliTypeAndDate}?fromdate=${data.fromdate}&todate=${data.todate}&baaliTypeId=${data.baaliTypeId}`
     );
     if (response?.status === 200) {
       successCallback(response?.data.SummaryBaali);
+    } else {
+      successCallback([]);
+    }
+  } catch (errror) {
+    successCallback([]);
+  }
+};
+export const GetLandStatusDetialByFarmTypeApi = async (successCallback) => {
+  try {
+    const response = await fetch(`${GetLandStatusDetialByFarmType}`);
+    if (response?.status === 200) {
+      successCallback(response?.data.LandStatus);
     } else {
       successCallback([]);
     }

@@ -24,3 +24,8 @@ export const GetLandStatusDetialByFarmType = "GetLandStatusDetialByFarmType";
 
 export const GetBaaliSummaryDetailsbyBaaliTypeAndVDCMUN =
   "GetBaaliSummaryDetailsbyBaaliTypeAndVDCMUN";
+
+export const GetBaaliSummaryDetailsbyBaaliTypeAndDate =
+  "GetBaaliSummaryDetailsbyBaaliTypeAndDate";
+
+export const AuthenticateUser = "AuthenticateUser";

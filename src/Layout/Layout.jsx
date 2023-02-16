@@ -9,6 +9,8 @@ import { NavLink, useNavigate, useNavigation } from "react-router-dom";
 import styled from "styled-components";
 import MainRoute from "../routes/MainRoute";
 import logo from "../assets/logo1.png";
+import { setSidebarCollaspedStore } from "../store/features/SideBarCollasped/sideBarCollaspedSlice";
+import { useDispatch } from "react-redux";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -34,6 +36,7 @@ const MainLayout = () => {
     navigate(`/${e.key}`);
   };
 
+  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -47,7 +50,10 @@ const MainLayout = () => {
       <Sider
         collapsible
         collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+        onCollapse={(value) => {
+          setCollapsed(value);
+          dispatch(setSidebarCollaspedStore(value));
+        }}
       >
         <SideBarTop>
           <img
@@ -138,16 +144,8 @@ const SideBarTop = styled.div`
   width: 100%;
   /* padding: 8px; */
   position: relative;
-  /* margin-bottom: 8px; */
+  margin-bottom: 12px;
   img {
     width: 25%;
   }
-`;
-
-const AvatarDiv = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 10px;
-  padding-right: 25px;
 `;

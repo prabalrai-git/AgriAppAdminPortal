@@ -22,7 +22,7 @@ const columns = [
     dataIndex: "CTypName",
   },
   {
-    title: "FarmType",
+    title: "Farm Type",
     dataIndex: "FarmType",
   },
   {
@@ -30,7 +30,7 @@ const columns = [
     dataIndex: "KittaNumber",
   },
   {
-    title: "LandOwner",
+    title: "Land Owner",
     dataIndex: "LandOwner",
   },
   {
@@ -38,15 +38,15 @@ const columns = [
     dataIndex: "District",
   },
   {
-    title: "frmName",
+    title: "Farm Name",
     dataIndex: "frmName",
   },
   {
-    title: "frmLocation",
+    title: "Farm Location",
     dataIndex: "frmLocation",
   },
   {
-    title: "VDCMun",
+    title: "VDC/Mun",
     dataIndex: "VDCMun",
   },
   // {

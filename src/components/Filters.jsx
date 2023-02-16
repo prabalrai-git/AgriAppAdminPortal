@@ -14,34 +14,39 @@ function Filters(props) {
     setVdc,
     setWard,
     onSubmit,
+    ProvinceWiseLandfilter,
   } = props;
   //   console.log(props);
 
   return (
     <>
       <MainContainer>
-        <EachContainer>
-          <p>Baali Type:</p>
+        {ProvinceWiseLandfilter ? (
+          ""
+        ) : (
+          <EachContainer>
+            <p>Baali Type:</p>
 
-          <Select
-            onSelect={(id) => setBaaliType(id)}
-            showSearch
-            style={{
-              width: "100%",
-            }}
-            placeholder="Search to Select"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              (option?.label ?? "").includes(input)
-            }
-            filterSort={(optionA, optionB) =>
-              (optionA?.label ?? "")
-                .toLowerCase()
-                .localeCompare((optionB?.label ?? "").toLowerCase())
-            }
-            options={baaliTypeList}
-          />
-        </EachContainer>
+            <Select
+              onSelect={(id) => setBaaliType(id)}
+              showSearch
+              style={{
+                width: "100%",
+              }}
+              placeholder="Search to Select"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.label ?? "").includes(input)
+              }
+              filterSort={(optionA, optionB) =>
+                (optionA?.label ?? "")
+                  .toLowerCase()
+                  .localeCompare((optionB?.label ?? "").toLowerCase())
+              }
+              options={baaliTypeList}
+            />
+          </EachContainer>
+        )}
         <EachContainer>
           <p>Provience:</p>
 
@@ -112,7 +117,7 @@ function Filters(props) {
           <p>Ward:</p>
 
           <Input
-            placeholder="enter ward no"
+            placeholder="Enter ward number"
             type={"number"}
             onChange={(e) => {
               setWard(e.target.value);
@@ -141,21 +146,30 @@ function Filters(props) {
 export default Filters;
 
 const MainContainer = styled.div`
-  width: 98%;
+  /* -webkit-justify-content: "left"; */
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: left;
   /* margin-bottom: 14px; */
+  background-color: white;
   flex-wrap: wrap;
   padding: 10px;
-  margin-top: 5%;
+  margin-top: 6%;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 4px 6px -6px #222;
+  -moz-box-shadow: 0 4px 6px -6px #222;
+  box-shadow: 0 4px 6px -4px lightgrey;
 `;
 
 const EachContainer = styled.div`
   width: 32%;
   display: flex;
   flex-direction: column;
+  justify-content: left;
   margin-bottom: 15px;
+  margin-right: 14px;
   p {
     font-size: 12px;
     font-weight: 500;
