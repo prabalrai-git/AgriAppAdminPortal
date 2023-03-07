@@ -25,7 +25,7 @@ function Filters(props) {
           ""
         ) : (
           <EachContainer>
-            <p>Baali Type:</p>
+            <p>बाली प्रकार:</p>
 
             <Select
               onSelect={(id) => setBaaliType(id)}
@@ -48,7 +48,7 @@ function Filters(props) {
           </EachContainer>
         )}
         <EachContainer>
-          <p>Provience:</p>
+          <p>प्रदेश:</p>
 
           <Select
             onSelect={(id) => onSelectState(id)}
@@ -70,7 +70,7 @@ function Filters(props) {
           />
         </EachContainer>
         <EachContainer>
-          <p>District:</p>
+          <p>जिल्ला:</p>
 
           <Select
             onSelect={(id) => onSelectDistrict(id)}
@@ -92,7 +92,7 @@ function Filters(props) {
           />
         </EachContainer>
         <EachContainer>
-          <p>Municipality:</p>
+          <p>पालिका:</p>
 
           <Select
             onSelect={(id) => setVdc(id)}
@@ -114,7 +114,7 @@ function Filters(props) {
           />
         </EachContainer>
         <EachContainer>
-          <p>Ward:</p>
+          <p>वार्ड नम्बर:</p>
 
           <Input
             placeholder="Enter ward number"
@@ -135,7 +135,7 @@ function Filters(props) {
             }}
             onClick={onSubmit}
           >
-            Load
+            लोड
           </Button>
         </EachContainer>
       </MainContainer>

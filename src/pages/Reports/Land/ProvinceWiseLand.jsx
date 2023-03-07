@@ -9,44 +9,41 @@ import {
   GetListOfVDCByDistrictIdApi,
   GetProvinceWiseLandReportDetailsApi,
 } from "../../../services/Appservices/AgricultureServices";
-
 const columns = [
   {
-    title: "Name",
+    title: "नाम",
     dataIndex: "FullName",
-    width: 150,
   },
   {
-    title: "Crop Type",
+    title: "बाली प्रकार",
     dataIndex: "CTypName",
-    width: 150,
   },
   {
-    title: "Farm Type",
+    title: "फार्म प्रकार",
     dataIndex: "FarmType",
   },
   {
-    title: "Kitta No.",
+    title: "कित्ता नम्बर",
     dataIndex: "KittaNumber",
   },
   {
-    title: "Land Owner",
+    title: "जग्गा मालिक",
     dataIndex: "LandOwner",
   },
   {
-    title: "District",
+    title: "जिल्ला",
     dataIndex: "District",
   },
   {
-    title: "Farm Name",
+    title: "खेतको नाम",
     dataIndex: "frmName",
   },
   {
-    title: "Farm Location",
+    title: "फार्मको स्थान",
     dataIndex: "frmLocation",
   },
   {
-    title: "VDC/Mun",
+    title: "नगर/गाउँपालिका",
     dataIndex: "VDCMun",
   },
   // {
@@ -92,7 +89,7 @@ const ProvienceWiseLand = () => {
     };
     console.log(data);
     GetProvinceWiseLandReportDetailsApi(data, (res) => {
-      console.log(res);
+      // console.log(res);
       if (res.length > 0) {
         // console.log(res, "this is res");
         setProvinceWiseLandList(res);
@@ -132,7 +129,7 @@ const ProvienceWiseLand = () => {
   };
   return (
     <>
-      <Header title={"Provience Wise Land Report"} />
+      <Header title={"प्रदेश अनुसार भूमि रिपोर्ट"} />
       <TableContainer>
         <Filters
           ProvinceWiseLandfilter={true}

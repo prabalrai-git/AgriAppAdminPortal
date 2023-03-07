@@ -1,11 +1,9 @@
 export const DashboardDataColors = [
-  "#01C698",
-  "#6929c4",
-  "#9f1853",
-  "#570408",
-  "#198038",
-  "#b28600",
-  "#8a3800",
+  "#F29E00",
+  "#F66D44",
+  "#60BAA0",
+  "#2D87BB",
+  "#B34C8A",
 ];
 
 export const DashboardBarDataColors = [

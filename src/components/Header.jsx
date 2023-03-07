@@ -44,7 +44,7 @@ function Header({ title }) {
         >
           <button
             onClick={() => {
-              console.log("hello world");
+              // console.log("hello world");
             }}
             style={{
               display: "flex",

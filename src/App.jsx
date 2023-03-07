@@ -9,9 +9,9 @@ function App() {
 
   const user = localStorage.getItem("name");
 
-  console.log(user, "useruseruseruser");
+  // console.log(user, "useruseruseruser");
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="AgricultureAppUAT">
       <Routes>
         {/* <Route path="/" element={<PublicPa />} /> */}
         <Route path="/" element={<Navigate to="/login" replace />} />

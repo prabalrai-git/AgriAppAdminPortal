@@ -35,6 +35,8 @@ function Dashboard() {
   const [doughnutLables, setDoughnutLables] = useState();
   const [doughnutData, setDoughnutData] = useState();
   const [piechartData, setPieChartData] = useState();
+  const [piechartDummyData, setPiechartDummyData] = useState();
+  const [piechartDummyLables, setPiechartDummyLables] = useState();
   const [piechartLables, setPiechartLables] = useState();
 
   // useEffect(() => {
@@ -47,9 +49,14 @@ function Dashboard() {
       todate: currentDate,
       baaliTypeId: 2,
     };
+    const datadummy = {
+      fromdate: "2021-1-1",
+      todate: currentDate,
+      baaliTypeId: 1,
+    };
 
     GetBaaliSummaryDetailsbyBaaliTypeAndVDCMUNApi(data, (res) => {
-      const lables = res.map((item) => item.VDCMun);
+      const lables = res.map((item) => item.VDCMun + "/ " + item.cropName);
       setBarLables(lables);
       const data = res.map((item) => item.Count);
       setBarData(data);
@@ -67,13 +74,19 @@ function Dashboard() {
       const data = res.map((item) => item.Count);
       setDoughnutData(data);
     });
+    GetBaaliSummaryDetailsbyBaaliTypeAndDateApi(datadummy, (res) => {
+      const lables = res.map((item) => item.cropName);
+      setPiechartDummyLables(lables);
+      const data = res.map((item) => item.Count);
+      setPiechartDummyData(data);
+    });
   }, []);
 
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
+        display: false,
         position: "bottom",
       },
       title: {
@@ -117,7 +130,25 @@ function Dashboard() {
       title: {
         display: true,
         position: "top",
-        text: "बाली सारांश बालीको प्रकार द्वारा ",
+        text: "बालीको प्रकार द्वारा बाली सारांश",
+      },
+    },
+    interaction: {
+      intersect: true,
+    },
+  };
+  const pieOptionsDummy = {
+    responsive: true,
+
+    plugins: {
+      legend: {
+        display: true,
+        position: "bottom",
+      },
+      title: {
+        display: true,
+        position: "top",
+        text: "पशुपालन प्रकार द्वारा पशुपालन सारांश",
       },
     },
     interaction: {
@@ -151,6 +182,19 @@ function Dashboard() {
       },
     ],
   };
+  const pieDummyDataObject = {
+    labels: piechartDummyLables,
+    datasets: [
+      {
+        labels: "hello",
+        data: piechartDummyData,
+        backgroundColor: DashboardDataColors,
+        hoverOffset: 4,
+        borderWidth: 3,
+        borderColor: "#f0ecec",
+      },
+    ],
+  };
 
   const pieDataObject = {
     labels: ["खेती नगरिएको", "खेती गरिएको"],
@@ -168,7 +212,7 @@ function Dashboard() {
 
   return (
     <>
-      <Header title={"Dashboard"} />
+      <Header title={"ड्यासबोर्ड"} />
       <DashboardMainContainer>
         <div
           style={{
@@ -176,49 +220,67 @@ function Dashboard() {
             flexDirection: "row",
             width: "100%",
             flexWrap: "wrap",
+            // aspectRatio: "3/0",
+            objectFit: "fill",
           }}
         >
           <DoughnutChartContainer>
             <Row>
               <Col span={24}>
-                <Card span={24} style={{ height: "380px" }}>
-                  <Pie
-                    options={pieOptions}
-                    // style={{ width: "100%", height: "250px" }}
-                    data={doughnutDataObject}
-                  />
-                </Card>
-              </Col>
-            </Row>
-          </DoughnutChartContainer>
-          <DoughnutChartContainer>
-            <Row>
-              <Col span={24}>
-                <Card span={24} style={{ height: "380px" }}>
+                <Card span={24} style={{ height: "280px" }}>
                   <Pie
                     options={doughOptions}
-                    // style={{ width: "100%", height: "250px" }}
+                    style={{ width: "100%", height: "130px" }}
                     data={pieDataObject}
                   />
                 </Card>
               </Col>
             </Row>
           </DoughnutChartContainer>
+          <DoughnutChartContainer>
+            <Row>
+              <Col span={24}>
+                <Card span={24} style={{ height: "280px" }}>
+                  <Pie
+                    options={pieOptions}
+                    style={{ width: "100%", height: "130px" }}
+                    data={doughnutDataObject}
+                  />
+                </Card>
+              </Col>
+            </Row>
+          </DoughnutChartContainer>
+
+          <DoughnutChartContainer>
+            <Row>
+              <Col span={24}>
+                <Card span={24} style={{ height: "280px" }}>
+                  <Doughnut
+                    options={pieOptionsDummy}
+                    style={{ width: "100%", height: "140px" }}
+                    data={pieDummyDataObject}
+                  />
+                </Card>
+              </Col>
+            </Row>
+          </DoughnutChartContainer>
+
           <CalendarAndGreetingContainer>
             <img
               src="https://t4.ftcdn.net/jpg/02/31/56/61/360_F_231566167_DcxyiS11UCKdIoFpPdkXFpAzeVhh6qFA.jpg"
               style={{
                 width: "100%",
                 objectFit: "cover",
-                height: "41vh",
-                borderRadius: "10px",
-                borderEndEndRadius: 0,
-                borderEndStartRadius: 0,
+                // height: "41vh",
+                height: "73%",
+                borderRadius: "8px",
+                borderEndEndRadius: "0px",
+                borderEndStartRadius: "0px",
               }}
             />
 
             <h4>
-              Namaste! <br />{" "}
+              स्वागतम ! <br />{" "}
               <p style={{ fontSize: "14px", marginTop: "8px" }}>
                 {new Date().toDateString()}
               </p>
@@ -230,11 +292,7 @@ function Dashboard() {
           <Row>
             <Col span={24}>
               <Card span={24}>
-                <Bar
-                  options={options}
-                  style={{ width: "100%", height: "100vh" }}
-                  data={data}
-                />
+                <Bar options={options} style={{ width: "100%" }} data={data} />
               </Card>
             </Col>
           </Row>
@@ -278,19 +336,21 @@ const BarChartContainer = styled.div`
   margin: 10px;
 `;
 const DoughnutChartContainer = styled.div`
-  width: 34%;
+  width: 23%;
 
   margin: 10px;
 `;
 const CalendarAndGreetingContainer = styled.div`
-  width: 26%;
-  margin: 10px;
+  /* width: 34%; */
+  width: 23%;
+
+  margin: 14px;
   h4 {
     text-align: center;
     background-color: white;
-    padding: 10px;
+    padding: 8px;
     /* padding-bottom: 35px; */
-    border-radius: 10px;
+    border-radius: 8px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     font-size: 20px;

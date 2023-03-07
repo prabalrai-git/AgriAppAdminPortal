@@ -14,39 +14,39 @@ import {
 
 const columns = [
   {
-    title: "Name",
+    title: "नाम",
     dataIndex: "FullName",
   },
   {
-    title: "Crop Type",
+    title: "बाली प्रकार",
     dataIndex: "CTypName",
   },
   {
-    title: "Farm Type",
+    title: "फार्म प्रकार",
     dataIndex: "FarmType",
   },
   {
-    title: "Kitta no.",
+    title: "कित्ता नम्बर",
     dataIndex: "KittaNumber",
   },
   {
-    title: "Land Owner",
+    title: "जग्गा मालिक",
     dataIndex: "LandOwner",
   },
   {
-    title: "District",
+    title: "जिल्ला",
     dataIndex: "District",
   },
   {
-    title: "Farm Name",
+    title: "खेतको नाम",
     dataIndex: "frmName",
   },
   {
-    title: "Farm Location",
+    title: "फार्मको स्थान",
     dataIndex: "frmLocation",
   },
   {
-    title: "VDC/Mun",
+    title: "नगर/गाउँपालिका",
     dataIndex: "VDCMun",
   },
   // {
@@ -140,7 +140,7 @@ const BaaliByLocation = () => {
       ward: ward,
       baaliType: baaliType,
     };
-    console.log(data);
+    // console.log(data);
 
     GetBaaliProductionDetailsByLocationApi(data, (res) => {
       //   console.log(res);
@@ -153,7 +153,7 @@ const BaaliByLocation = () => {
 
   return (
     <>
-      <Header title={"Baali Details By Location"} />
+      <Header title={"स्थान अनुसार बाली"} />
       <TableContainer>
         <Filters
           baaliTypeList={baaliTypeList}

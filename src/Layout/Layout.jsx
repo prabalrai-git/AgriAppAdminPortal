@@ -21,17 +21,17 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem("Dashboard", "dashboard", <PieChartOutlined />),
-  getItem("Reports", "Reports", <FileOutlined />, [
-    getItem("Baali By Location", "baaliByLocation"),
-    getItem("Provience-Land ", "provienceLand "),
+  getItem("ड्यासबोर्ड", "dashboard", <PieChartOutlined />),
+  getItem("रिपोर्टहरू", "Reports", <FileOutlined />, [
+    getItem("स्थान अनुसार बाली", "baaliByLocation"),
+    getItem("प्रदेश-भूमि ", "provienceLand "),
   ]),
 ];
 
 const MainLayout = () => {
   const navigate = useNavigate();
   const onClick = (e) => {
-    console.log(e, "click");
+    // console.log(e, "click");
 
     navigate(`/${e.key}`);
   };
@@ -67,12 +67,12 @@ const MainLayout = () => {
                 color: "white",
                 fontSize: collapsed ? "10px" : "15px",
                 // textAlign: "center",
-                marginLeft: "-30px",
+                marginLeft: "-60px",
                 marginTop: "10px",
                 fontWeight: "500",
               }}
             >
-              Agriculture App
+              कृषि एप
             </p>
           )}
         </SideBarTop>

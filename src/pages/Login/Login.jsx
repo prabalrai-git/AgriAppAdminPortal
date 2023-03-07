@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Checkbox, Col, Form, Input, message, Row } from "antd";
 import { AuthenticateUserApi } from "../../services/Appservices/LoginServices";
 import { useNavigate } from "react-router-dom";
 import { setLoginDetails } from "../../store/features/Login/loginSlice";
@@ -29,13 +29,13 @@ function Login() {
     AuthenticateUserApi(data, (res) => {
       console.log(res, "res from login");
       if (res.length > 0) {
+        console.log(res.length);
         dispatch(setLoginDetails(res));
         localStorage.setItem("name", res[0].Username);
-
         navigate("/dashboard");
       } else {
         message.error("Wrong username or password");
-        clearState();
+        // clearState();
         form.resetFields();
       }
     });
@@ -46,73 +46,77 @@ function Login() {
   return (
     <MainDiv>
       <LoginDiv>
-        <h2>Login</h2>
-        <Form
-          form={form}
-          name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 24,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            // label="Username"
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input
-              placeholder="Enter your username"
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            // label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input.Password
-              placeholder="Enter your password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            wrapperCol={{
-              offset: 0,
-              span: 24,
-            }}
-          >
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{ width: "100%", marginTop: "10px" }}
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+          <Col className="gutter-row" span={24}>
+            <h2>लग-इन</h2>
+            <Form
+              form={form}
+              name="basic"
+              labelCol={{
+                span: 8,
+              }}
+              wrapperCol={{
+                span: 24,
+              }}
+              style={{
+                maxWidth: 600,
+              }}
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              autoComplete="off"
             >
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
+              <Form.Item
+                // label="Username"
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: " कृपया युजरनेम राख्नुहोस्!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="युजरनेम राख्नुहोस्"
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+              </Form.Item>
+
+              <Form.Item
+                // label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "कृपया पासवर्ड राख्नुहोस्!!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  placeholder="पासवर्ड राख्नुहोस्"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Item>
+
+              <Form.Item
+                wrapperCol={{
+                  offset: 0,
+                  span: 24,
+                }}
+              >
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ width: "100%", marginTop: "10px" }}
+                >
+                  लग -इन
+                </Button>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
       </LoginDiv>
     </MainDiv>
   );
@@ -138,9 +142,9 @@ const MainDiv = styled.div`
 `;
 
 const LoginDiv = styled.div`
-  width: 25%;
+  /* width: 25%; */
   background-color: #f6f6f6;
-  padding: 20px;
+  padding: 40px;
   padding-top: 40px;
   /* padding-right: 40px; */
   border-radius: 6px;
